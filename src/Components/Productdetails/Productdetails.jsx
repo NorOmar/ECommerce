@@ -85,7 +85,7 @@ export default function Productdetails() {
                         <span><i className='fas fa-star text-yellow-400'></i> {product?.ratingsAverage}</span>
                     </div>
                     <button className='btn' onClick={() => addCard(product.id)}>
-                        {loading && currentid == product.id ? <i className='fas fa-spinner fa-spin'></i> : "Add To Card"}
+                        {loading && currentid == product.id ? <i className='fas fa-spinner fa-spin'></i> : "Add To Cart"}
                     </button>
 
                 </div>
@@ -104,7 +104,9 @@ export default function Productdetails() {
                                     <span><i className='fas fa-star text-yellow-400'></i> {product.ratingsAverage}</span>
                                 </div>
                             </Link>
-                            <button className='btn'>Add to Cat</button>
+                            <button className='btn' onClick={() => addCard(product.id)}>
+                                {loading && currentid == product.id ? <i className='fas fa-spinner fa-spin'></i> : "Add To Cart"}
+                            </button>
                         </div>
                     </div>
                 )) : <div className="sk-folding-cube">

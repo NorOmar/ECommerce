@@ -97,7 +97,7 @@ export default function Products() {
               </Link>
               <div className='flex gap-4'>
                 <button className='btn' onClick={() => addCard(product.id)}>
-                {loading && currentid == product.id ?<i className='fas fa-spinner fa-spin'></i>:"Add To Card"}
+                {loading && currentid == product.id ?<i className='fas fa-spinner fa-spin'></i>:"Add To Cart"}
                 </button>
                 <button onClick={() => addWishlist(product.id)}>
                   {loading && wishid == product.id ? <svg
