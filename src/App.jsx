@@ -24,6 +24,7 @@ import WishlistContextProvider from './Context/WishlistContext';
 import Forgetpassword from './Components/Forgetpassword/Forgetpassword';
 import VerityCode from './Components/VerityCode/VerityCode';
 import ResetPassword from './Components/ResetPassword/ResetPassword';
+import Notfound from './Components/Notfound/Notfound';
 
 
 
@@ -47,6 +48,7 @@ let x = createBrowserRouter([
       { path: "resetpassword", element: <ResetPassword /> },
       { path: "register", element: <Register /> },
       { path: "favorite", element: <Favorite /> },
+      { path: "*", element: <Notfound /> },
       ]},
 ])
 function App() {
