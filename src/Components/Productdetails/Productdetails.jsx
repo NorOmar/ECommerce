@@ -1,13 +1,19 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Slider from "react-slick";
+import { CartContext } from '../../Context/CartContext';
+import toast from 'react-hot-toast';
+
 
 export default function Productdetails() {
+    let { addProductToCard, numderItems, setnumderItems } = useContext(CartContext);
     const [product, setproduct] = useState(null)
     const [relatedProducts, setrelatedProducts] = useState([])
+    const [loading, setloading] = useState(false)
+    const [currentid, setcurrentid] = useState(0)
     let {id,category} = useParams();
     
     var settings = {
@@ -17,6 +23,23 @@ export default function Productdetails() {
         slidesToShow: 1,
         slidesToScroll: 1,
     };
+
+    async function addCard(id) {
+        setcurrentid(id)
+        setloading(true)
+        let response = await addProductToCard(id)
+        console.log(response);
+
+        if (response.data.status == "success") {
+            setnumderItems(numderItems + 1)
+            toast.success(response.data.message)
+            setloading(false)
+        }
+        else {
+            toast.error(response.data.message)
+            setloading(false)
+        }
+    }
 
     function GetProduct(id) {
         axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`)
@@ -47,13 +70,13 @@ export default function Productdetails() {
     return (
         <>
             <div className="row items-center">
-                <div className="w-1/4">
+                <div className="lg:w-1/4 w-full">
                     <Slider {...settings}>
                         {product?.images.map((src) => <img src={src} className='w-full'></img>)}
 
                     </Slider>
                 </div>
-                <div className="w-3/4 p-10">
+                <div className="lg:w-3/4 p-10">
                     <h1 className='font-bold flex items-left'>{product?.title}</h1>
                     <h3 className='text-gray-700 mt-4 flex items-left'>{product?.description}</h3>
                     <h3 className='mt-4 text-emerald-600 flex items-left'>{product?.category.name}</h3>
@@ -61,14 +84,16 @@ export default function Productdetails() {
                         <span>{product?.price}EGP</span>
                         <span><i className='fas fa-star text-yellow-400'></i> {product?.ratingsAverage}</span>
                     </div>
-                    <button className='btn'>Add to Cat</button>
+                    <button className='btn' onClick={() => addCard(product.id)}>
+                        {loading && currentid == product.id ? <i className='fas fa-spinner fa-spin'></i> : "Add To Card"}
+                    </button>
 
                 </div>
             </div>
 
             <div className="row">
                 {relatedProducts.length > 0 ?relatedProducts.map((product) => (
-                    <div key={product.id} className="w-1/6">
+                    <div key={product.id} className="lg:w-1/5 md:w-1/4 sm:w-1/2">
                         <div className="product p-3">
                             <Link to={`/productdetails/${product.id}/${product.category.name}`}>
                                 <img src={product.imageCover} className='w-full' alt="" />

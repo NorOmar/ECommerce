@@ -85,7 +85,7 @@ export default function Products() {
                 {data?.data?.data.map((product) => (
                     <div key={product.id} className="lg:w-1/5 md:w-1/4 sm:w-1/2">
                         <div className="product rounded-lg border-solid hover:shadow-lg hover:border-[1px] hover:border-emerald-500 p-3">
-                            <Link to={`productdetails/${product.id}/${product.category.name}`}>
+                            <Link to={`/productdetails/${product.id}/${product.category.name}`}>
                                 <img src={product.imageCover} className='w-full' alt="" />
                                 <h3 className='text-emerald-600'>{product.category.name}</h3>
                                 <h3 className='font-bold mb-3'>{product.title.split(" ").slice(0, 2).join(" ")}</h3>

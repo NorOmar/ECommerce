@@ -20,8 +20,8 @@ export default function ResetPassword() {
                 setisLoading(false)
                 console.log(res);
                 localStorage.setItem("userToken", res.data.token);
-                toast.success("Welcome Back To Home..")
                 navigate(`/login`)
+                toast.success("Welcome Back To Home :)")
             })
             .catch((err) => {
                 setisLoading(false)

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from 'react'
@@ -31,7 +32,10 @@ export default function Favorite() {
 
     useEffect(() => {
         getToCard();
-    }, [])
+        (id) => {
+            deleteProduct(id)
+        }
+    }, [productDetails])
     return (
         <>
             {productDetails?.length > 0 ? <>
